@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 
-app = Flask(__name__)
+# Burada artık Flask'a özel olarak "Templates" klasörünü kullan dediğimizi unutma
+app = Flask(__name__, template_folder='Templates')
 app.secret_key = "gizli_anahtar_123"
 
+# Basit kullanıcı verisi (örnek amaçlı)
 users = {
     "user1": "password123",
     "muammer": "sifre456"
@@ -22,7 +24,7 @@ def login():
             return redirect(url_for('profile', username=username))
         else:
             flash('Kullanıcı adı veya şifre yanlış!', 'error')
-            return render_template('Login.html')
+            return render_template('Login.html')  # Büyük harf L!
     return render_template('Login.html')
 
 @app.route('/profile/<username>')
@@ -30,7 +32,7 @@ def profile(username):
     if username not in users:
         flash('Kullanıcı bulunamadı!', 'error')
         return redirect(url_for('login'))
-    return render_template('Profil.html', username=username)
+    return render_template('Profil.html', username=username)  # Büyük harf P!
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
